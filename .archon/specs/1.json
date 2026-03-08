@@ -1,0 +1,73 @@
+{
+  "id": "manifest-1-20260308T152709Z",
+  "ticketNumber": "1",
+  "title": "Gestionnaire de liens favoris avec tags",
+  "description": "Application web mono-utilisateur de gestion de bookmarks avec systeme de tags. Backend FastAPI exposant une API REST documentee (OpenAPI), frontend React avec interface responsive. Structure du projet: monorepo avec sous-repertoires backend/ et frontend/. Base de donnees SQLite. Fonctionnalites: CRUD bookmarks, CRUD tags, association many-to-many bookmarks/tags, filtrage par tags (intersection/ET logique), recherche par mot-cle dans titre et URL. Les tags peuvent etre crees de maniere autonome (US5) ou inline lors de l'ajout/modification d'un bookmark (US1/US3) — si un nom de tag inexistant est fourni, il est cree automatiquement.",
+  "acceptanceCriteria": [
+    "AC1.1: Given l'utilisateur est sur la page principale, When il soumet une URL valide et un titre, Then le bookmark est cree et apparait dans la liste",
+    "AC1.2: Given l'utilisateur ajoute un bookmark, When il associe des tags existants ou saisit de nouveaux noms de tags, Then le bookmark est cree avec les tags associes (les nouveaux tags sont crees automatiquement)",
+    "AC1.3: Given une URL invalide est soumise, When le formulaire est valide, Then un message d'erreur est affiche",
+    "AC1.4: Given un formulaire sans titre, When il est valide, Then un message d'erreur est affiche",
+    "AC2.1: Given des bookmarks existent, When l'utilisateur accede a la page, Then tous les bookmarks sont affiches avec titre, URL et tags",
+    "AC2.2: Given aucun bookmark n'existe, When l'utilisateur accede a la page, Then un message d'invitation est affiche",
+    "AC3.1: Given un bookmark existe, When le titre est modifie, Then il est mis a jour",
+    "AC3.2: Given un bookmark existe, When l'URL est modifiee avec une URL valide, Then elle est mise a jour",
+    "AC3.3: Given un bookmark a des tags, When les tags sont modifies, Then les associations sont mises a jour",
+    "AC3.4: Given une URL invalide en modification, When valide, Then erreur affichee",
+    "AC4.1: Given un bookmark existe, When suppression confirmee, Then il est supprime",
+    "AC4.2: Given un bookmark avec tags est supprime, Then les tags ne sont pas supprimes",
+    "AC5.1: Given un nom de tag unique, When cree, Then le tag est disponible",
+    "AC5.2: Given un tag existe deja, When meme nom soumis, Then erreur affichee",
+    "AC5.3: Given un tag associe a des bookmarks, When supprime, Then retire de tous les bookmarks",
+    "AC5.4: Given un tag sans association, When supprime, Then il est supprime",
+    "AC6.1: Given des bookmarks tagges existent, When un tag est selectionne, Then seuls les bookmarks avec ce tag sont affiches",
+    "AC6.2: Given plusieurs tags selectionnes, Then intersection (ET logique) appliquee",
+    "AC6.3: Given un filtre actif, When retire, Then tous les bookmarks affiches",
+    "AC6.4: Given filtre sans resultat, Then message 'aucun resultat' affiche",
+    "AC7.1: Given des bookmarks existent, When mot-cle saisi, Then bookmarks filtres par titre/URL",
+    "AC7.2: Given recherche active, When champ efface, Then tous les bookmarks affiches",
+    "AC7.3: Given recherche sans resultat, Then message 'aucun resultat' affiche",
+    "AC7.4: Given filtre tag + recherche mot-cle, Then les deux criteres sont cumules"
+  ],
+  "constraints": [
+    "C1: Backend Python/FastAPI",
+    "C2: Frontend JavaScript/React",
+    "C3: Base de donnees SQLite",
+    "C4: API REST avec documentation OpenAPI auto-generee",
+    "C5: Executable localement avec instructions dans le README",
+    "C6: Structure monorepo avec sous-repertoires backend/ et frontend/"
+  ],
+  "outOfScope": [
+    "Authentification / multi-utilisateur",
+    "Import/export de bookmarks",
+    "Recuperation automatique de metadonnees depuis l'URL",
+    "Extension navigateur",
+    "Tags hierarchiques",
+    "Partage de bookmarks",
+    "Notifications",
+    "CI/CD et deploiement production"
+  ],
+  "userStories": [
+    "US1: En tant qu'utilisateur, je veux ajouter un lien favori avec un titre et des tags, afin de le sauvegarder pour le retrouver plus tard",
+    "US2: En tant qu'utilisateur, je veux voir la liste de tous mes bookmarks avec leurs tags, afin d'avoir une vue d'ensemble de mes liens sauvegardes",
+    "US3: En tant qu'utilisateur, je veux modifier le titre, l'URL ou les tags d'un bookmark existant, afin de corriger ou mettre a jour mes informations",
+    "US4: En tant qu'utilisateur, je veux supprimer un bookmark, afin de retirer un lien qui n'est plus pertinent",
+    "US5: En tant qu'utilisateur, je veux creer et supprimer des tags, afin d'organiser mes bookmarks par categorie",
+    "US6: En tant qu'utilisateur, je veux filtrer mes bookmarks en selectionnant un ou plusieurs tags, afin de retrouver rapidement les liens d'une categorie",
+    "US7: En tant qu'utilisateur, je veux rechercher mes bookmarks par mot-cle, afin de trouver un lien specifique sans parcourir toute la liste"
+  ],
+  "implementationOrder": [
+    "US0: Project setup — scaffolding backend/ (FastAPI + SQLite) et frontend/ (React), configuration, README",
+    "US5: Gestion des tags (CRUD tags — prerequis pour les associations)",
+    "US1: Ajouter un bookmark avec tags (CRUD bookmark + association tags, creation inline)",
+    "US2: Consulter et parcourir les bookmarks (liste avec tags)",
+    "US3: Modifier un bookmark (edition titre, URL, tags)",
+    "US4: Supprimer un bookmark",
+    "US6: Filtrer les bookmarks par tags",
+    "US7: Rechercher les bookmarks par mot-cle (+ combinaison avec filtre tags)"
+  ],
+  "complexity": "moyen",
+  "validatedAt": "2026-03-08T15:27:09Z",
+  "validationScore": 86.25,
+  "validationDecision": "CONDITIONAL GO — FAIL items resolved at save time (implementation order added, tag creation model clarified, project structure specified)"
+}
